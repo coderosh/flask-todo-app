@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% from "form.helpers.html" import form_field %}
+
+<!-- Title -->
+{% block title %} Register {% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+<form method="post">
+    {{ form.csrf_token }}
+
+    {{ form_field(form.email) }}
+    {{ form_field(form.password) }}
+    {{ form_field(form.confirm) }}
+
+    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+</form>
+
+{% endblock %}

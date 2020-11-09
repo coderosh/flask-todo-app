@@ -9,6 +9,8 @@
 
 <form method="post">
 
+  {{ form.csrf_token }}
+
   {{ form_field(form.task) }}
 
   <div class="form-check">

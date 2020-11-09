@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect
+from flask_login import login_required
 
 from todo.models import Todo
 from todo.extensions import db
@@ -9,12 +10,14 @@ todos = Blueprint('todos', __name__)
 
 
 @todos.route('/')
+@login_required
 def index():
     all_todos = Todo.query.all()
     return render_template('todos/index.html', todos=all_todos)
 
 
 @todos.route('/new', methods=['GET', 'POST'])
+@login_required
 def new():
     form = TodoForm()
 
@@ -28,6 +31,7 @@ def new():
 
 
 @todos.route('/edit/<int:todo_id>', methods=['GET', 'POST'])
+@login_required
 def edit(todo_id):
     todo = Todo.query.get_or_404(todo_id)
 
@@ -44,10 +48,12 @@ def edit(todo_id):
 
 
 @todos.route('/completed')
+@login_required
 def completed():
     return "All Completed todos"
 
 
 @todos.route('/remaining')
+@login_required
 def remaining():
     return "All remaining todos"

@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
-    />
-    <title>{% block title %}{% endblock %} | Todo</title>
-  </head>
 
-  <body>
-    <div class="container mt-3">{% block content %}{% endblock %}</div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+  <title>{% block title %}{% endblock %} | Todo</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <div class="container">
+      <div class="navbar-brand">Todo App</div>
+      <div class="navbar-item">
+        {% if current_user.is_authenticated %}
+        <a href="/todos" class="ml-3 navbar-link">Todos</a>
+        <a href="/logout" class="ml-3 navbar-link">Logout</a>
+        {% else %}
+        <a href="/register" class="ml-3 navbar-link">Register</a>
+        <a href="/login" class="ml-3 navbar-link">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-3">{% block content %}{% endblock %}</div>
+</body>
+
 </html>

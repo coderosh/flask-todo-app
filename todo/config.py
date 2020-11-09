@@ -1,6 +1,7 @@
 class BaseConfig:
     DEBUG = False
     SQLALCHEMY_ECHO = False
+    WTF_CSRF_ENABLED = False
 
 
 class DevConfig(BaseConfig):

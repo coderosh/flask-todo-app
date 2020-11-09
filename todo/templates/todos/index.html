@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+<!-- Title -->
+{% block title %} All Todos {% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Completed</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for todo in todos %}
+
+    <tr>
+      <td>{{ todo.task }}</td>
+      <td>{{ todo.completed }}</td>
+      <td>
+        <a href="/todos/edit/{{ todo.id }}">Edit</a>
+      </td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

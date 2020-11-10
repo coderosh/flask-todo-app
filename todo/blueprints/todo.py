@@ -12,8 +12,8 @@ todos = Blueprint('todos', __name__)
 @todos.route('/')
 @login_required
 def index():
-    all_todos = Todo.query.all()
-    return render_template('todos/index.html', todos=all_todos)
+    all_todos = Todo.query.filter_by(creator_id=current_user.id)
+    return render_template('todos/index.html', title="All", todos=all_todos)
 
 
 @todos.route('/new', methods=['GET', 'POST'])
@@ -37,6 +37,9 @@ def new():
 def edit(todo_id):
     todo = Todo.query.get_or_404(todo_id)
 
+    if not todo.creator_id == current_user.id:
+        return redirect('/todos')
+
     form = TodoForm(obj=todo)
 
     if form.validate_on_submit():
@@ -52,10 +55,14 @@ def edit(todo_id):
 @todos.route('/completed')
 @login_required
 def completed():
-    return "All Completed todos"
+    all_todos = Todo.query.filter_by(
+        creator_id=current_user.id, completed=True)
+    return render_template('todos/index.html', title="Completed", todos=all_todos)
 
 
 @todos.route('/remaining')
 @login_required
 def remaining():
-    return "All remaining todos"
+    all_todos = Todo.query.filter_by(
+        creator_id=current_user.id, completed=False)
+    return render_template('todos/index.html', title="Remaining", todos=all_todos)

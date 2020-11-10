@@ -1,10 +1,18 @@
 {% extends 'layout.html' %}
 
 <!-- Title -->
-{% block title %} All Todos {% endblock %}
+{% block title %} {{ title }} Todos {% endblock %}
 
 <!-- Content -->
 {% block content %}
+
+<div class="my-4">
+  <a href="/todos" class="btn {{ "btn-primary" if title == "All" else "btn-secondary" }}">All Todos</a>
+  <a href="/todos/completed" class="btn {{ "btn-primary" if title == "Completed" else "btn-secondary" }}">Completed
+    Todos</a>
+  <a href="/todos/remaining" class="btn {{ "btn-primary" if title == "Remaining" else "btn-secondary" }}">Remaining
+    Todos</a>
+</div>
 
 <table class="table">
   <thead>

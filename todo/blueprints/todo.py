@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from todo.models import Todo
 from todo.extensions import db
@@ -22,7 +22,9 @@ def new():
     form = TodoForm()
 
     if form.validate_on_submit():
-        todo = Todo(task=form.task.data, completed=form.completed.data)
+        todo = Todo(task=form.task.data,
+                    completed=form.completed.data, creator=current_user)
+
         db.session.add(todo)
         db.session.commit()
         return redirect('/todos')

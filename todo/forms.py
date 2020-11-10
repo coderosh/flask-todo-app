@@ -45,9 +45,7 @@ class LoginForm(FlaskForm):
 
         user = User.query.filter_by(email=self.email.data).first()
 
-        password_match = check_password_hash(user.password, self.password.data)
-
-        if not user or not password_match:
+        if not user or not check_password_hash(user.password, self.password.data):
             self.email.errors.append("Invalid Credentials")
             self.password.errors.append("Invalid Credentials")
             return False

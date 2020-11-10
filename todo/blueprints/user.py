@@ -24,7 +24,7 @@ def register():
     form = SignupForm()
 
     if current_user.is_authenticated:
-        redirect('/todos')
+        return redirect('/todos')
 
     if form.validate_on_submit():
         user = User.create(email=form.email.data, password=form.password.data)
@@ -41,7 +41,7 @@ def login():
     form = LoginForm()
 
     if current_user.is_authenticated:
-        redirect('/todos')
+        return redirect('/todos')
 
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).one()

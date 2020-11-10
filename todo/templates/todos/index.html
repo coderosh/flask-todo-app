@@ -20,6 +20,7 @@
       <th>Task</th>
       <th>Completed</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -29,7 +30,13 @@
       <td>{{ todo.task }}</td>
       <td>{{ todo.completed }}</td>
       <td>
-        <a href="/todos/edit/{{ todo.id }}">Edit</a>
+        <a class="btn btn-info" href="/todos/edit/{{ todo.id }}">Edit</a>
+      </td>
+      <td>
+        <form action="/todos/delete/{{ todo.id }}" method="POST">
+          <input name="csrf_token" id="csrf_token" type="hidden" value="{{ csrf_token() }}">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
       </td>
     </tr>
 

@@ -52,6 +52,19 @@ def edit(todo_id):
     return render_template('todos/edit.html', form=form)
 
 
+@todos.route('/delete/<int:todo_id>', methods=["POST"])
+@login_required
+def delete(todo_id):
+    todo = Todo.query.get_or_404(todo_id)
+
+    if not todo.creator_id == current_user.id:
+        return redirect('/todos')
+
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect('/todos')
+
+
 @todos.route('/completed')
 @login_required
 def completed():
